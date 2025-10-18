@@ -8,7 +8,7 @@ import pages.LoginPage;
 
 public class LoginTests extends ApplicationManager {
     @Test
-    public void loginPositiveTest() {
+    public void loginPosTest() {
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLoginHeader();
         LoginPage loginPage = new LoginPage(getDriver());
@@ -16,7 +16,7 @@ public class LoginTests extends ApplicationManager {
     }
 
     @Test
-    public void loginNegativeTest_wrongPassword() {
+    public void loginNegTest_wrongPassword() {
         User user = new User("lizkafox@mail.ru", "QwertY!23");
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLoginHeader();
