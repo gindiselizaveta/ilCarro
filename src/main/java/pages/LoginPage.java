@@ -13,24 +13,33 @@ public class LoginPage extends BasePage {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
     }
 
-    @FindBy(css = "#email")
+    @FindBy(id = "email")
     WebElement inputEmail;
 
     @FindBy(css = "#password")
     WebElement inputPassword;
 
-    @FindBy(css = "button[type='submit']")
-    WebElement btnLoginForm;
+    @FindBy(xpath = "//button[@type='submit']")
+    WebElement btnYalla;
 
-    public void typeLoginForm(String email, String password) {
-        inputEmail.sendKeys(email);
-        inputPassword.sendKeys(password);
-        btnLoginForm.click();
-    }
+    @FindBy(xpath = "//h2[text()='Logged in success']")
+     WebElement popUpTextLoggedSuccess;
 
-    public void typeLoginFormWithUser(User user) {
+    @FindBy(xpath = "//h2[contains(text(),'Login or Password incorrect')]")
+    WebElement popUpTextLoggedFailed;
+
+    public void typeLoginForm(User user){
         inputEmail.sendKeys(user.getUsername());
         inputPassword.sendKeys(user.getPassword());
-        btnLoginForm.click();
+        btnYalla.click();
     }
+
+    public boolean isLoggedDisplayed() {
+        return elementIsDisplayed(popUpTextLoggedSuccess);
+    }
+    public boolean isLoggedIncorrect() {
+        return elementIsDisplayed(popUpTextLoggedFailed);
+    }
+
+
 }
