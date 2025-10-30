@@ -16,7 +16,14 @@ public class HomePage extends BasePage {
     @FindBy(css = "a[href='/login?url=%2Fsearch']")
     WebElement btnLoginHeader;
 
+    @FindBy(xpath = "//a[text()='Sign up']")
+    WebElement btnSignUpHeader;
+
     public void clickBtnLoginHeader() {
         btnLoginHeader.click();
+    }
+
+    public void clickBtnSignUpHeader() {
+        btnSignUpHeader.click();
     }
 }

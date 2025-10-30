@@ -15,20 +15,16 @@ public class LoginPage extends BasePage {
 
     @FindBy(id = "email")
     WebElement inputEmail;
-
     @FindBy(css = "#password")
     WebElement inputPassword;
-
     @FindBy(xpath = "//button[@type='submit']")
     WebElement btnYalla;
-
     @FindBy(xpath = "//h2[text()='Logged in success']")
-     WebElement popUpTextLoggedSuccess;
-
+    WebElement popUpTextLoggedSuccess;
     @FindBy(xpath = "//h2[contains(text(),'Login or Password incorrect')]")
     WebElement popUpTextLoggedFailed;
 
-    public void typeLoginForm(User user){
+    public void typeLoginForm(User user) {
         inputEmail.sendKeys(user.getUsername());
         inputPassword.sendKeys(user.getPassword());
         btnYalla.click();
@@ -37,9 +33,9 @@ public class LoginPage extends BasePage {
     public boolean isLoggedDisplayed() {
         return elementIsDisplayed(popUpTextLoggedSuccess);
     }
+
     public boolean isLoggedIncorrect() {
         return elementIsDisplayed(popUpTextLoggedFailed);
     }
-
 
 }
