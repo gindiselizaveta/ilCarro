@@ -8,9 +8,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
+import utils.RetryAnalyzer;
 
 public class LoginTests extends ApplicationManager {
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void loginPosTest() {
         User user = User.builder().username("lizkafox@mail.ru").password("wertY!23").build();
 
