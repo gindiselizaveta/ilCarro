@@ -38,6 +38,12 @@ public abstract class BasePage {
             case LOGIN -> {
                 return (T) new LoginPage(driver);
             }
+            case LOGOUT -> {
+                return (T) new HomePage(driver);
+            }
+            case DELLETE_ACCOUNT -> {
+                return (T) new HomePage(driver);
+            }
             default -> throw new IllegalAccessException("Invalid parameter headerMenuItem");
         }
     }
