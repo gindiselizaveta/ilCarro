@@ -1,6 +1,7 @@
 package ui_tests;
 
 import manager.ApplicationManager;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -23,24 +24,50 @@ public class SearchCarTests extends ApplicationManager {
         LocalDate dateFrom = LocalDate.of(2025, 12, 1);
         LocalDate dateTo = LocalDate.of(2025, 12, 31);
         homePage.typeSearchForm(city, dateFrom, dateTo);
-        Assert.assertTrue(homePage.isCarAvailable());
+        Assert.assertTrue(homePage.urlContains("results", 5));
     }
 
-    @Test
-    public void searchNegTestEmptyCity() {
+    @Test(expectedExceptions = TimeoutException.class)
+    public void searchNegTestWOCity() {
         String city = "";
         LocalDate dateFrom = LocalDate.of(2025, 12, 1);
         LocalDate dateTo = LocalDate.of(2025, 12, 31);
-        homePage.typeSearchForm(city, dateFrom, dateTo);
-        Assert.assertTrue(homePage.isCarAvailable());
+        homePage.typeSearchFormWOJS(city, dateFrom, dateTo);
     }
 
     @Test
-    public void searchNegTestEmptyDates() {
+    public void searchNegTestBeforeTodayDate() {
         String city = "Haifa";
         LocalDate dateFrom = LocalDate.of(2025, 11, 1);
         LocalDate dateTo = LocalDate.of(2025, 12, 31);
-        homePage.typeSearchForm(city, dateFrom, dateTo);
-        Assert.assertTrue(homePage.wrongDate());
+        homePage.typeSearchFormWOJS(city, dateFrom, dateTo);
+        Assert.assertTrue(homePage.isTextInErrorPresent("You can't pick date before today"));
+    }
+
+    @Test
+    public void searchNegTestWOCityValidateErrorMessage() {
+        String city = "";
+        LocalDate dateFrom = LocalDate.of(2025, 12, 1);
+        LocalDate dateTo = LocalDate.of(2025, 12, 31);
+        homePage.typeSearchFormWOJS(city, dateFrom, dateTo);
+        Assert.assertTrue(homePage.isTextInErrorPresent("City is required"));
+    }
+
+    @Test
+    public void searchNegTestAfterOneYear() {
+        String city = "Haifa";
+        LocalDate dateFrom = LocalDate.of(2025, 12, 1);
+        LocalDate dateTo = LocalDate.of(2027, 12, 31);
+        homePage.typeSearchFormWOJS(city, dateFrom, dateTo);
+        Assert.assertTrue(homePage.isTextInErrorPresent("You can't pick date after one year"));
+    }
+
+    @Test
+    public void searchNegTestToBeforeFrom() {
+        String city = "Haifa";
+        LocalDate dateFrom = LocalDate.of(2025, 12, 31);
+        LocalDate dateTo = LocalDate.of(2025, 12, 1);
+        homePage.typeSearchFormWOJS(city, dateFrom, dateTo);
+        Assert.assertTrue(homePage.isTextInErrorPresent("Second date must be after first date"));
     }
 }

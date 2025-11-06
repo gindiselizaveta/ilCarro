@@ -10,14 +10,19 @@ import pages.HomePage;
 import pages.LoginPage;
 import utils.RetryAnalyzer;
 
+import java.lang.reflect.Method;
+
 public class LoginTests extends ApplicationManager {
     @Test(retryAnalyzer = RetryAnalyzer.class)
-    public void loginPosTest() {
+    public void loginPosTest(Method method) {
         User user = User.builder().username("lizkafox@mail.ru").password("wertY!23").build();
+
+        logger.info("Start test " + method.getName() + "with data " + user);
 
         new HomePage(getDriver()).clickBtnLoginHeader();
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.typeLoginForm(user);
+
         Assert.assertTrue(loginPage.isLoggedDisplayed());
     }
 
@@ -28,6 +33,7 @@ public class LoginTests extends ApplicationManager {
         new HomePage(getDriver()).clickBtnLoginHeader();
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.typeLoginForm(user);
+
         Assert.assertTrue(loginPage.isLoggedIncorrect());
     }
 
@@ -38,6 +44,7 @@ public class LoginTests extends ApplicationManager {
         new HomePage(getDriver()).clickBtnLoginHeader();
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.typeLoginForm(user);
+
         Assert.assertTrue(loginPage.isTextInErrorPresent("Password is required"));
     }
 
@@ -48,6 +55,7 @@ public class LoginTests extends ApplicationManager {
         new HomePage(getDriver()).clickBtnLoginHeader();
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.typeLoginForm(user);
+
         Assert.assertTrue(loginPage.isTextInErrorPresent("It'snot look like email"));
     }
 
@@ -58,6 +66,7 @@ public class LoginTests extends ApplicationManager {
         new HomePage(getDriver()).clickBtnLoginHeader();
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.typeLoginForm(user);
+
         Assert.assertTrue(loginPage.isTextInErrorPresent("Email is required"));
     }
 
@@ -68,6 +77,7 @@ public class LoginTests extends ApplicationManager {
         new HomePage(getDriver()).clickBtnLoginHeader();
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.typeLoginForm(user);
+
         Assert.assertTrue(loginPage.isLoggedIncorrect());
     }
 

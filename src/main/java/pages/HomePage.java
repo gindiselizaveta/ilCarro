@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -56,6 +57,15 @@ public class HomePage extends BasePage {
         inputDates.sendKeys(dates);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.querySelector(\"button[type='submit']\").removeAttribute(\"disabled\")");
+        clickWait(btnYalla, 3);
+    }
+
+    public void typeSearchFormWOJS(String city, LocalDate dateFrom, LocalDate dateTo) {
+        inputCity.sendKeys(city);
+        System.out.println(dateFrom.toString());
+        String dates = dateFrom.getMonthValue() + "/" + dateFrom.getDayOfMonth() + "/" + dateFrom.getYear()
+                + " - " + dateTo.getMonthValue() + "/" + dateTo.getDayOfMonth() + "/" + dateTo.getYear();
+        inputDates.sendKeys(dates);
         btnYalla.click();
     }
 
@@ -65,5 +75,18 @@ public class HomePage extends BasePage {
 
     public boolean wrongDate() {
         return elementIsDisplayed(textDateBeforeToday);
+    }
+
+    void clickWait(WebElement element, int time) {
+        new WebDriverWait(driver, Duration.ofSeconds(time)).until(ExpectedConditions.elementToBeClickable(element)).click();
+    }
+
+    public boolean urlContains(String fraction, int time) {
+        try {
+            return new WebDriverWait(driver, Duration.ofSeconds(time)).until(ExpectedConditions.urlContains(fraction));
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
