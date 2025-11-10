@@ -5,14 +5,17 @@ import dto.User;
 import manager.ApplicationManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LetTheCarWorkPage;
 import pages.LoginPage;
 import utils.HeaderMenuItem;
+import utils.TestNGListener;
 
 import static pages.BasePage.clickButtonHeader;
 
+@Listeners(TestNGListener.class)
 public class AddCarTests extends ApplicationManager {
 
     LetTheCarWorkPage letTheCarWorkPage;
