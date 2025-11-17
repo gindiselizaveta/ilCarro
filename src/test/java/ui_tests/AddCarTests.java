@@ -1,5 +1,6 @@
 package ui_tests;
 
+import data_providers.CarDP;
 import dto.NewCar;
 import dto.User;
 import manager.ApplicationManager;
@@ -33,6 +34,12 @@ public class AddCarTests extends ApplicationManager {
     public void addNewCarPositiveTest() {
         NewCar newCar = NewCar.builder().serialNumber("5229630").manufacture("Toyota").model("Yaris Cross").year("2022").fuel("Hybrid").seats(4).carClass("J").pricePerDay(350.0).about("Some String About car").city("Haifa").build();
         letTheCarWorkPage.typeLetTheCarWorkForm(newCar);
+        Assert.assertTrue(letTheCarWorkPage.isBtnSubmitDisabled());
+    }
+
+    @Test(dataProvider = "dataProviderCarFile", dataProviderClass = CarDP.class)
+    public void addNewCarPosDataProvider(NewCar car) {
+        letTheCarWorkPage.typeLetTheCarWorkForm(car);
         Assert.assertTrue(letTheCarWorkPage.isBtnSubmitDisabled());
     }
 }

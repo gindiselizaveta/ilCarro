@@ -30,8 +30,11 @@ public class TestNGListener implements ITestListener {
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        ITestListener.super.onTestSkipped(result);
-        logger.info("Skipped test --> " + result.getMethod());
+        System.out.println("Skipped --> " + result.getName());
+        if (result.getThrowable() != null) {
+            System.out.println("Skip reason:");
+            result.getThrowable().printStackTrace();
+        }
     }
 
     @Override

@@ -1,0 +1,5 @@
+serialNumber,manufacture,model,year,fuel,seats,carClass,pricePerDay,about,city
+CAR001,Toyota,Corolla,2021,Petrol,5,Compact,55.0,Comfortable and fuel-efficient sedan,Tel Aviv
+CAR002,Hyundai,Tucson,2022,Diesel,5,SUV,80.0,Spacious family SUV with great performance,Haifa
+CAR003,Honda,Civic,2020,Hybrid,5,Compact,65.0,Sporty design with hybrid engine,Jerusalem
+CAR004,Mazda,CX-5,2023,Petrol,5,SUV,90.0,New stylish SUV with advanced safety features,Eilat
