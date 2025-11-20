@@ -17,7 +17,7 @@ import java.lang.reflect.Method;
 @Listeners(TestNGListener.class)
 public class LoginTests extends ApplicationManager {
 
-    @Test(retryAnalyzer = RetryAnalyzer.class)
+    @Test//(retryAnalyzer = RetryAnalyzer.class)
     public void loginPosTest(Method method) {
         User user = User.builder().username("lizkafox@mail.ru").password("wertY!23").build();
 

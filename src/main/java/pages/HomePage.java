@@ -6,6 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.FooterMenuItem;
 import utils.PropertiesReader;
 
 import java.time.Duration;
@@ -125,5 +126,10 @@ public class HomePage extends BasePage {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.querySelector(\"button[type='submit']\").removeAttribute(\"disabled\")");
         clickWait(btnYalla, 3);
+    }
+
+    public boolean clickFooterItem(FooterMenuItem item, String title) {
+        driver.findElement(By.cssSelector(item.getLocator())).click();
+        return new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.titleContains(title));
     }
 }

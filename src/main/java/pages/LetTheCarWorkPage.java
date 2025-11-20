@@ -1,11 +1,15 @@
 package pages;
 
 import dto.NewCar;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import org.openqa.selenium.support.ui.Select;
+
+import java.io.File;
 
 public class LetTheCarWorkPage extends BasePage {
     public LetTheCarWorkPage(WebDriver driver) {
@@ -21,7 +25,7 @@ public class LetTheCarWorkPage extends BasePage {
     @FindBy(id = "year")
     WebElement year;
     @FindBy(id = "fuel")
-    WebElement fuel;
+    WebElement selectfuel;
     @FindBy(id = "seats")
     WebElement seats;
     @FindBy(id = "class")
@@ -32,6 +36,8 @@ public class LetTheCarWorkPage extends BasePage {
     WebElement about;
     @FindBy(id = "pickUpPlace")
     WebElement city;
+    @FindBy(id = "photos")
+    WebElement image;
     @FindBy(xpath = "//button[@type = 'submit']")
     WebElement btnSubmit;
 
@@ -40,16 +46,54 @@ public class LetTheCarWorkPage extends BasePage {
         manufacture.sendKeys(car.getManufacture());
         model.sendKeys(car.getModel());
         year.sendKeys(car.getYear());
-        fuel.sendKeys(car.getFuel());
+        //selectfuel.sendKeys(car.getFuel());
+        typeFuel(car.getFuel());
         seats.sendKeys(String.valueOf(car.getSeats()));
         carClass.sendKeys(car.getCarClass());
-        pricePerDay.sendKeys(String.valueOf(car.getPricePerDay()));
+        pricePerDay.sendKeys(car.getPricePerDay() + "");
         about.sendKeys(car.getAbout());
         city.sendKeys(car.getCity());
+        addPhoto(car.getImage());
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.querySelector(\"button[type='submit']\").removeAttribute(\"disabled\")");
+        clickWait(btnSubmit, 3);
+    }
+
+    public void typeLetTheCarWorkFormWOSelector(NewCar car) {
+        serialNumber.sendKeys(car.getSerialNumber());
+        manufacture.sendKeys(car.getManufacture());
+        model.sendKeys(car.getModel());
+        year.sendKeys(car.getYear());
+        selectfuel.sendKeys(car.getFuel());
+        //typeFuel(car.getFuel());
+        seats.sendKeys(String.valueOf(car.getSeats()));
+        carClass.sendKeys(car.getCarClass());
+        pricePerDay.sendKeys(car.getPricePerDay() + "");
+        about.sendKeys(car.getAbout());
+        city.sendKeys(car.getCity());
+        addPhoto(car.getImage());
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.querySelector(\"button[type='submit']\").removeAttribute(\"disabled\")");
+        clickWait(btnSubmit, 3);
+    }
+
+    private void typeFuel(String fuel) {
+        Select select = new Select(selectfuel);
+        select.selectByValue(fuel);
+    }
+
+    private void addPhoto(String fileName) {
+        image.sendKeys(new File("src/test/resources"
+                + File.separator + fileName)
+                .getAbsolutePath());
     }
 
     public boolean isBtnSubmitDisabled() {
         String disabledAttr = btnSubmit.getAttribute("disabled");
         return disabledAttr != null;
+    }
+
+    public boolean btnOkPopUpPresent(){
+        return elementIsDisplayed(btnOkPopUp);
     }
 }

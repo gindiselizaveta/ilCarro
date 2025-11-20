@@ -23,11 +23,18 @@ public class LoginPage extends BasePage {
     WebElement popUpTextLoggedSuccess;
     @FindBy(xpath = "//h2[contains(text(),'Login or Password incorrect')]")
     WebElement popUpTextLoggedFailed;
+    @FindBy(xpath = "//mat-dialog-container//button")
+    WebElement BtnOkPopUp;
 
     public void typeLoginForm(User user) {
         inputEmail.sendKeys(user.getUsername());
         inputPassword.sendKeys(user.getPassword());
         btnYalla.click();
+    }
+
+    public void clickBtnOk() {
+        //clickWait(btnOkPopUp, 3);
+        btnOkPopUp.click();
     }
 
     public boolean isLoggedDisplayed() {

@@ -19,16 +19,16 @@ public class NewCar {
     private String model;
     private String year;
     private String fuel;
-    private int seats;
+    private Integer seats;
     private String carClass;
     private Double pricePerDay;
     private String about;
     private String city;
-    private int lat;
-    private int lng;
+    //    private int lat;
+//    private int lng;
     private String image;
-    private String owner;
-    private ArrayType<BookedPeriods> bookedPeriods;
+//    private String owner;
+    //private ArrayType<BookedPeriods> bookedPeriods;
 
 }
 
