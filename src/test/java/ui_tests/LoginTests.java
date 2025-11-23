@@ -17,7 +17,7 @@ import java.lang.reflect.Method;
 @Listeners(TestNGListener.class)
 public class LoginTests extends ApplicationManager {
 
-    @Test//(retryAnalyzer = RetryAnalyzer.class)
+    @Test(groups = {"smoke", "user"})//(retryAnalyzer = RetryAnalyzer.class)
     public void loginPosTest(Method method) {
         User user = User.builder().username("lizkafox@mail.ru").password("wertY!23").build();
 
@@ -31,7 +31,7 @@ public class LoginTests extends ApplicationManager {
         Assert.assertTrue(loginPage.isLoggedDisplayed());
     }
 
-    @Test
+    @Test(groups = {"negative"})
     public void loginNegTestWrongPassword() {
         User user = User.builder().username("lizkafox@mail.ru").password("WrongPassword").build();
 
@@ -53,7 +53,7 @@ public class LoginTests extends ApplicationManager {
         Assert.assertTrue(loginPage.isTextInErrorPresent("Password is required"));
     }
 
-    @Test
+    @Test(groups = {"negative"})
     public void loginNegTest_emailWOAt() {
         User user = User.builder().username("lizkafoxmail.ru").password("wertY!23").build();
 

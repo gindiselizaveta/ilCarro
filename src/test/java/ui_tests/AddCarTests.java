@@ -25,7 +25,7 @@ public class AddCarTests extends ApplicationManager {
     LetTheCarWorkPage letTheCarWorkPage;
     LoginPage loginPage;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void login() throws IllegalAccessException {
         User user = User.builder()
                 .username("lizkafox@mail.ru")
@@ -37,7 +37,7 @@ public class AddCarTests extends ApplicationManager {
         letTheCarWorkPage = clickButtonHeader(HeaderMenuItem.LETTHECARWORK);
     }
 
-    @Test
+    @Test(groups = {"smoke", "car"})
     public void addNewCarPositiveTest() {
         NewCar newCar = NewCar.builder()
                 .serialNumber("8" + new Random().nextInt(10000))
@@ -62,7 +62,7 @@ public class AddCarTests extends ApplicationManager {
         //Assert.assertTrue(letTheCarWorkPage.btnOkPopUpPresent());
     }
 
-    @Test
+    @Test(groups = {"negative", "negativecar"})
     public void addNewCarNegativeTest_WOManufacture() {
         NewCar newCar = NewCar.builder()
                 .serialNumber("8" + new Random().nextInt(10000))
@@ -80,7 +80,7 @@ public class AddCarTests extends ApplicationManager {
         Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent("Make is required"));
     }
 
-    @Test
+    @Test(groups = {"negativecar"})
     public void addNewCarNegativeTest_WOModel() {
         NewCar newCar = NewCar.builder()
                 .serialNumber("8" + new Random().nextInt(10000))
@@ -98,7 +98,7 @@ public class AddCarTests extends ApplicationManager {
         Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent("Model is required"));
     }
 
-    @Test
+    @Test(groups = {"negativecar"})
     public void addNewCarNegativeTest_WOYear() {
         NewCar newCar = NewCar.builder()
                 .serialNumber("8" + new Random().nextInt(10000))
@@ -116,7 +116,7 @@ public class AddCarTests extends ApplicationManager {
         Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent("Year required"));
     }
 
-    @Test
+    @Test(groups = {"negativecar"})
     public void addNewCarNegativeTest_WOFuel() {
         NewCar newCar = NewCar.builder()
                 .serialNumber("8" + new Random().nextInt(10000))
@@ -134,7 +134,7 @@ public class AddCarTests extends ApplicationManager {
         Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent("Fuel is required"));
     }
 
-    @Test
+    @Test(groups = {"negativecar"})
     public void addNewCarNegativeTest_LesThanTwoSeats() {
         NewCar newCar = NewCar.builder()
                 .serialNumber("8" + new Random().nextInt(10000))
@@ -152,7 +152,7 @@ public class AddCarTests extends ApplicationManager {
         Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent("Car must have min 2 seat"));
     }
 
-    @Test
+    @Test(groups = {"negativecar"})
     public void addNewCarNegativeTest_WOClass() {
         NewCar newCar = NewCar.builder()
                 .serialNumber("8" + new Random().nextInt(10000))
@@ -170,7 +170,7 @@ public class AddCarTests extends ApplicationManager {
         Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent("Car class is required"));
     }
 
-    @Test
+    @Test(groups = {"negativecar"})
     public void addNewCarNegativeTest_WOSerialNumber() {
         NewCar newCar = NewCar.builder()
                 .serialNumber("")
@@ -188,7 +188,7 @@ public class AddCarTests extends ApplicationManager {
         Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent("Car registration number is required"));
     }
 
-    @Test
+    @Test(groups = {"negativecar"})
     public void addNewCarNegativeTest_WOPrice() {
         NewCar newCar = NewCar.builder()
                 .serialNumber("8" + new Random().nextInt(10000))
@@ -206,7 +206,7 @@ public class AddCarTests extends ApplicationManager {
         Assert.assertTrue(letTheCarWorkPage.isTextInErrorPresent("Price is required"));
     }
 
-    @Test
+    @Test(groups = {"negativecar"})
     public void addNewCarNegativeTest_TooBigPrice() {
         NewCar newCar = NewCar.builder()
                 .serialNumber("8" + new Random().nextInt(10000))

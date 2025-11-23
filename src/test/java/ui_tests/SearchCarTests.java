@@ -16,12 +16,12 @@ import java.time.LocalDateTime;
 public class SearchCarTests extends ApplicationManager {
     HomePage homePage;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void openHomePage() {
         homePage = new HomePage(getDriver());
     }
 
-    @Test
+    @Test(groups = {"smoke", "car"})
     public void searchPosTest() {
         String city = "Haifa";
         LocalDate dateFrom = LocalDate.of(2025, 12, 1);
@@ -48,7 +48,7 @@ public class SearchCarTests extends ApplicationManager {
         Assert.assertTrue(homePage.isTextInErrorPresent("You can't pick date before today"));
     }
 
-    @Test
+    @Test(groups = {"negative"})
     public void searchNegTestWOCityValidateErrorMessage() {
         String city = "";
         LocalDate dateFrom = LocalDate.of(2025, 12, 1);
@@ -58,7 +58,7 @@ public class SearchCarTests extends ApplicationManager {
         Assert.assertTrue(homePage.isTextInErrorPresent("City is required"));
     }
 
-    @Test
+    @Test(groups = {"negative"})
     public void searchNegTestAfterOneYear() {
         String city = "Haifa";
         LocalDate dateFrom = LocalDate.of(2025, 12, 1);

@@ -17,13 +17,13 @@ public class SignUpTests extends ApplicationManager {
 
     SignUpPage signUpPage;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void goToSignUpPage() {
         new HomePage(getDriver()).clickBtnSignUpHeader();
         signUpPage = new SignUpPage(getDriver());
     }
 
-    @Test
+    @Test(groups = {"smoke", "user"})
     public void regPositiveTest() {
         User user = positiveUser();
         signUpPage.typeRegForm(user);
@@ -32,7 +32,7 @@ public class SignUpTests extends ApplicationManager {
         Assert.assertTrue(signUpPage.isTextDialogContainerPresents());
     }
 
-    @Test
+    @Test(groups = "negativesignup")
     public void regNegativeTest_emptyName() {
         User user = positiveUser();
         user.setFirstName("");
@@ -42,7 +42,7 @@ public class SignUpTests extends ApplicationManager {
         Assert.assertTrue(signUpPage.isTextInErrorPresent("Name is required"));
     }
 
-    @Test
+    @Test(groups = "negativesignup")
     public void regNegativeTest_emptyLastName() {
         User user = positiveUser();
         user.setLastName("");
@@ -52,7 +52,7 @@ public class SignUpTests extends ApplicationManager {
         Assert.assertTrue(signUpPage.isTextInErrorPresent("Last name is required"));
     }
 
-    @Test
+    @Test(groups = "negativesignup")
     public void regNegativeTest_emptyEmail() {
         User user = positiveUser();
         user.setUsername("");
@@ -62,7 +62,7 @@ public class SignUpTests extends ApplicationManager {
         Assert.assertTrue(signUpPage.isTextInErrorPresent("Email is required"));
     }
 
-    @Test
+    @Test(groups = "negativesignup")
     public void regNegativeTest_EmailWOAt() {
         User user = positiveUser();
         user.setUsername("lizkafoxmail.ru");
@@ -72,7 +72,7 @@ public class SignUpTests extends ApplicationManager {
         Assert.assertTrue(signUpPage.isTextInErrorPresent("Wrong email format"));
     }
 
-    @Test
+    @Test(groups = "negativesignup")
     public void regNegativeTest_EmptyPassword() {
         User user = positiveUser();
         user.setPassword("");
@@ -82,7 +82,7 @@ public class SignUpTests extends ApplicationManager {
         Assert.assertTrue(signUpPage.isTextInErrorPresent("Password is required"));
     }
 
-    @Test
+    @Test(groups = "negativesignup")
     public void regNegativeTest_WOCheckBoxAction() {
         User user = positiveUser();
         signUpPage.typeRegForm(user);

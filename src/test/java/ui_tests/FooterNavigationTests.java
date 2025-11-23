@@ -8,7 +8,7 @@ import utils.FooterMenuItem;
 
 public class FooterNavigationTests extends ApplicationManager {
 
-    @Test
+    @Test(groups = {"smoke"})
     public void iconFacebookNavigationTest() {
         Assert.assertTrue(new HomePage(getDriver()).clickFooterItem(FooterMenuItem.ICON_FACEBOOK, "Facebook"));
     }
